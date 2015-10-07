@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "OneBuy"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "Biblioteca para integração CrossApp no iOS"
   s.homepage         = "https://github.com/onebuy/onebuy_crossapp_ios"
   s.license          = { :type => 'BSD' }
