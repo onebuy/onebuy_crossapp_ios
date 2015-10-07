@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TipoOperacaoAppOneBuy.h"
 #import "RetornoResponse.h"
 #import "CheckoutOneBuyDadosResponse.h"
 #import "PedidoResponse.h"
@@ -23,6 +22,11 @@
 //#define INTEGRACAO_ONEBUY @"http://10.1.1.7:64432/hub/v1/"
 #define INTEGRACAO_ONEBUY @"https://d-api.onebuy.com/hub/v1/"
 
+typedef enum
+{
+    ObterToken,
+    AutorizarPedido
+}TipoOperacaoAppOneBuy;
 
 @interface OneBuy : NSObject
 
