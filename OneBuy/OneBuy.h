@@ -8,19 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "TipoOperacaoAppOneBuy.h"
-#import "Response/RetornoResponse.h"
-#import "Response/CheckoutOneBuyDadosResponse.h"
-#import "Response/PedidoResponse.h"
-#import "Request/PedidoRequest.h"
-#import "Response/CapturaPedidoResponse.h"
-#import "Response/SondaPedidoResponse.h"
+#import "RetornoResponse.h"
+#import "CheckoutOneBuyDadosResponse.h"
+#import "PedidoResponse.h"
+#import "PedidoRequest.h"
+#import "CapturaPedidoResponse.h"
+#import "SondaPedidoResponse.h"
 #import "Criptografia.h"
 #import "AESCrypt.h"
 
 #define URL_APP_STORE_ONEBUY @"https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=694816266&mt=8"
 #define CULTURA_INTERNACIONALIZACAO @"pt-BR"
 #define URL_APLICACAO_ONEBUY @"onebuy://"
-#define INTEGRACAO_ONEBUY @"https://api.onebuy.com/hub/v1/"
+//#define INTEGRACAO_ONEBUY @"http://10.1.1.7:64432/hub/v1/"
+#define INTEGRACAO_ONEBUY @"https://d-api.onebuy.com/hub/v1/"
 
 
 @interface OneBuy : NSObject
