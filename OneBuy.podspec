@@ -7,7 +7,6 @@ Pod::Spec.new do |s|
   s.authors          = "OneBuy"
   s.platform     = :ios, "6.0"
   s.source       = { :git => "https://github.com/onebuy/onebuy_crossapp_ios.git", :tag => s.version }
-  s.public_header_files = "OneBuy/**/*.{h}"  
   s.source_files  = "OneBuy/**/*.h"
   s.framework    = "Security"
   s.requires_arc = true
