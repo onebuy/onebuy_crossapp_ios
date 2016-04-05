@@ -54,9 +54,10 @@ static OneBuy *sharedInstance = nil;
     {
         //Abrindo o app OneBuy para realizar a geração de um novo token OneBuy
         
-        [[OneBuy sharedInstance] setCodigoAutorizacaoCorrente:nil];
+        [[OneBuy sharedInstance] setCodigoAutorizacaoServidor:nil];
         [[OneBuy sharedInstance] setNumeroTransacaoCheckout:nil];
         [[OneBuy sharedInstance] setIdentificadorUsuarioTransacao:nil];
+        [[OneBuy sharedInstance] setCodigoAutorizacaoCliente:nil];
         
         //Obtem autorização no servidor OneBuy
         [[OneBuy sharedInstance] setIdentificadorUsuarioTransacao:[Util gerarIdentificadorTransacao]];
@@ -68,12 +69,13 @@ static OneBuy *sharedInstance = nil;
             
             if(objAutorizacaoResponse.RetornoResponse.Sucesso)
             {
-                [[OneBuy sharedInstance] setCodigoAutorizacaoCorrente:objAutorizacaoResponse.CodigoAutorizacao];
-                
+                [[OneBuy sharedInstance] setCodigoAutorizacaoServidor:objAutorizacaoResponse.CodigoAutorizacaoServidor];
+                [[OneBuy sharedInstance] setCodigoAutorizacaoCliente:objAutorizacaoResponse.CodigoAutorizacaoCliente];
                 //Tentamos abrir a aplicação OneBuy se existir um código de autorização corrente
-                if([[OneBuy sharedInstance] codigoAutorizacaoCorrente] != nil)
+                
+                if([[OneBuy sharedInstance] codigoAutorizacaoServidor] != nil)
                 {
-                    [OneBuy abrirURLAplicacaoOneBuy:objTipoOperacaoAppOneBuy comCodigoAutorizacao:objAutorizacaoResponse.CodigoAutorizacao eComURLRetorno:urlRetorno];
+                    [OneBuy abrirURLAplicacaoOneBuy:objTipoOperacaoAppOneBuy comCodigoAutorizacao:objAutorizacaoResponse.CodigoAutorizacaoCliente eComURLRetorno:urlRetorno];
                 }else{
                     //Nada a fazer. A mensagem de retorno poderá ser usada pelo lojista para identificar o problema.
                 }
@@ -87,7 +89,7 @@ static OneBuy *sharedInstance = nil;
     else
     {
         //Abrindo o app OneBuy para realizar a sonda e aprovação do pedido.
-        [OneBuy abrirURLAplicacaoOneBuy:objTipoOperacaoAppOneBuy comCodigoAutorizacao:[[OneBuy sharedInstance] codigoAutorizacaoCorrente] eComURLRetorno:urlRetorno];
+        [OneBuy abrirURLAplicacaoOneBuy:objTipoOperacaoAppOneBuy comCodigoAutorizacao:[[OneBuy sharedInstance] codigoAutorizacaoCliente] eComURLRetorno:urlRetorno];
         
         objRetornoResponse.Sucesso = YES;
         _callbackAuth(objRetornoResponse);
@@ -141,7 +143,7 @@ static OneBuy *sharedInstance = nil;
 #pragma mark Métodos Privados
 + (void) abrirURLAplicacaoOneBuy:(TipoOperacaoAppOneBuy)objTipoOperacaoAppOneBuy comCodigoAutorizacao: (NSString *) codigoAutorizacao eComURLRetorno:(NSString *) urlRetorno{
     
-    if([self verificarInstaladoAppOneBuy]){
+    //if([self verificarInstaladoAppOneBuy]){
         
         if(objTipoOperacaoAppOneBuy == ObterToken)
         {
@@ -159,15 +161,15 @@ static OneBuy *sharedInstance = nil;
             
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }
-    }else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APP_STORE_ONEBUY]];
-    }
+    //}else {
+        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APP_STORE_ONEBUY]];
+    //}
 }
 
 +(BOOL) verificarInstaladoAppOneBuy{
     
     BOOL appInstalado = [[UIApplication sharedApplication]
-                           canOpenURL: [NSURL URLWithString:URL_APLICACAO_ONEBUY]];
+                           canOpenURL: [NSURL URLWithString:@"onebuy"]];
     
     return appInstalado;
 }

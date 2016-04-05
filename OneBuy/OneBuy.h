@@ -19,7 +19,6 @@
 #define URL_APP_STORE_ONEBUY @"https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=694816266&mt=8"
 #define CULTURA_INTERNACIONALIZACAO @"pt-BR"
 #define URL_APLICACAO_ONEBUY @"onebuy://"
-//#define INTEGRACAO_ONEBUY @"http://10.1.1.7:64432/hub/v1/"
 #define INTEGRACAO_ONEBUY @"https://d-api.onebuy.com/hub/v1/"
 
 typedef enum
@@ -32,7 +31,8 @@ typedef enum
 
 @property (retain) NSString *chaveLoja;
 @property (retain) NSString *cultura;
-@property (retain) NSString *codigoAutorizacaoCorrente;
+@property (retain) NSString *codigoAutorizacaoServidor;
+@property (retain) NSString *codigoAutorizacaoCliente;
 @property (retain) NSString *identificadorUsuarioTransacao;
 @property (retain) NSString *numeroTransacaoCheckout;
 

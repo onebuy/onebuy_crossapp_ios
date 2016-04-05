@@ -38,7 +38,8 @@
     //Apenas tenta compor o restante do objeto se a requisição teve sucesso
     if(objAutorizacaoResponse.RetornoResponse.Sucesso)
     {
-        objAutorizacaoResponse.CodigoAutorizacao = jsonData[@"CodigoAutorizacao"];
+        objAutorizacaoResponse.CodigoAutorizacaoServidor = jsonData[@"CodigoAutorizacaoServidor"];
+        objAutorizacaoResponse.CodigoAutorizacaoCliente = jsonData[@"CodigoAutorizacaoCliente"];
     }
     
     return objAutorizacaoResponse;
