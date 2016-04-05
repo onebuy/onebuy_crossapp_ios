@@ -28,7 +28,7 @@
     objAFHTTPRequestOperationManager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSMutableDictionary *parametrosRequisicao = [NSMutableDictionary dictionary];
-    [parametrosRequisicao setObject:[[OneBuy sharedInstance] codigoAutorizacaoCorrente] forKey:@"CodigoAutorizacao"];
+    [parametrosRequisicao setObject:[[OneBuy sharedInstance] codigoAutorizacaoServidor] forKey:@"codigoAutorizacaoServidor"];
     [parametrosRequisicao setValue:codigoTransacaoGateway forKey:@"CodigoTransacaoGateway"];
     [parametrosRequisicao setValue:[NSNumber numberWithLongLong:valorPedido] forKey:@"ValorPedido"];
     [parametrosRequisicao setValue:[[OneBuy sharedInstance] identificadorUsuarioTransacao] forKey:@"IdentificadorUsuarioTransacao"];

@@ -13,7 +13,7 @@
 #import "PedidoResponse.h"
 
 @interface PedidoRequest : NSObject
-@property (retain, readonly) NSString *CodigoAutorizacao;
+@property (retain, readonly) NSString *CodigoAutorizacaoServidor;
 @property (retain) DadosPedidoRequest *DadosPedido;
 @property (retain) DadosAntiFraudeRequest *DadosAntiFraude;
 

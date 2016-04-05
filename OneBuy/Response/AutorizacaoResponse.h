@@ -10,7 +10,8 @@
 #import "RetornoResponse.h"
 
 @interface AutorizacaoResponse : NSObject
-@property (retain) NSString *CodigoAutorizacao;
+@property (retain) NSString *CodigoAutorizacaoServidor;
+@property (retain) NSString *CodigoAutorizacaoCliente;
 @property (retain) RetornoResponse *RetornoResponse;
 
 - (id)initWithJson:(id)jsonRecebido;

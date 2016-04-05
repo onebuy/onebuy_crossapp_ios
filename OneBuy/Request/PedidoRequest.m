@@ -25,9 +25,7 @@
 {
     self = [super init];
     if(self) {
-        _CodigoAutorizacao = [[OneBuy sharedInstance] codigoAutorizacaoCorrente];
-        DadosIdentificacaoRequest *objDadosIdentificacaoRequest = [[DadosIdentificacaoRequest alloc] init];
-        _DadosIdentificacao = objDadosIdentificacaoRequest;
+        _CodigoAutorizacaoServidor = [[OneBuy sharedInstance] codigoAutorizacaoServidor];
     }
     
     return self;
@@ -40,7 +38,7 @@
     __block PedidoResponse *objPedidoResponseRetorno = [[PedidoResponse alloc] init];
     
     
-    NSString *url = [NSString stringWithFormat:@"%@IntegracaoLoja/CriarPedido", INTEGRACAO_ONEBUY];
+    NSString *url = [NSString stringWithFormat:@"%@IntegracaoCrossApp/CriarPedido", INTEGRACAO_ONEBUY];
     AFHTTPRequestOperationManager *objAFHTTPRequestOperationManager = [AFHTTPRequestOperationManager manager];
     objAFHTTPRequestOperationManager.requestSerializer = [AFJSONRequestSerializer serializer];
 
@@ -77,10 +75,6 @@
     
     [parametrosRequisicaoDadosPedido setValue:tempArray forKey:@"PedidoItens"];
     
-    //DadosIdentificacaoRequest
-    NSMutableDictionary *parametrosRequisicaoDadosIdentificacao = [NSMutableDictionary dictionary];
-    [parametrosRequisicaoDadosIdentificacao setValue:objPedidoRequest.DadosIdentificacao.IdentificadorUsuario forKey:@"IdentificadorUsuario"];
-    [parametrosRequisicaoDadosIdentificacao setValue:objPedidoRequest.DadosIdentificacao.PlataformaOrigem forKey:@"PlataformaOrigem"];
     
     //DadosAntiFraude
     NSMutableDictionary *parametrosRequisicaoDadosAntiFraude = nil;
@@ -105,9 +99,9 @@
     }
     
     NSDictionary *parametrosRequisicao =[NSDictionary dictionaryWithObjectsAndKeys:
-                           objPedidoRequest.CodigoAutorizacao, @"CodigoAutorizacao",
+                           objPedidoRequest.CodigoAutorizacaoServidor, @"CodigoAutorizacaoServidor",
+                           [[OneBuy sharedInstance] identificadorUsuarioTransacao], @"IdentificadorUsuarioTransacao",
                            parametrosRequisicaoDadosPedido, @"DadosPedido",
-                           parametrosRequisicaoDadosIdentificacao, @"DadosIdentificacao",
                            parametrosRequisicaoDadosAntiFraude, @"DadosAntiFraude",
                            nil];
     

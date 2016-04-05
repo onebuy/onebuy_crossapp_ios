@@ -24,14 +24,15 @@
     _callbackBlock = block;
     __block CheckoutOneBuyDadosResponse *objCheckoutOneBuyDadosResponseRetorno = [[CheckoutOneBuyDadosResponse alloc] init];
     
-    NSString *url = [NSString stringWithFormat:@"%@IntegracaoLoja/RealizarCheckoutOneBuy", INTEGRACAO_ONEBUY];
+    NSString *url = [NSString stringWithFormat:@"%@IntegracaoCrossApp/RealizarCheckoutOneBuyCrossApp", INTEGRACAO_ONEBUY];
     AFHTTPRequestOperationManager *objAFHTTPRequestOperationManager = [AFHTTPRequestOperationManager manager];
     objAFHTTPRequestOperationManager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSMutableDictionary *parametrosRequisicao = [NSMutableDictionary dictionary];
-    [parametrosRequisicao setObject:[[OneBuy sharedInstance] codigoAutorizacaoCorrente] forKey:@"CodigoAutorizacao"];
+    [parametrosRequisicao setObject:[[OneBuy sharedInstance] codigoAutorizacaoServidor] forKey:@"CodigoAutorizacaoServidor"];
+    [parametrosRequisicao setObject:[[OneBuy sharedInstance] codigoAutorizacaoCliente] forKey:@"codigoAutorizacaoCliente"];
     [parametrosRequisicao setValue:tokenOneBuy forKey:@"TokenOneBuy"];
-    [parametrosRequisicao setValue:[Util gerarIdentificadorAparelho] forKey:@"IdentificadorUsuario"];
+    [parametrosRequisicao setValue:[[OneBuy sharedInstance] identificadorUsuarioTransacao] forKey:@"IdentificadorUsuarioTransacao"];
     
     [objAFHTTPRequestOperationManager POST:url parameters:parametrosRequisicao success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //Sucesso
@@ -40,11 +41,7 @@
         objCheckoutOneBuyDadosResponseRetorno = objCheckoutOneBuyDadosResponse;
         
         if(objCheckoutOneBuyDadosResponseRetorno.RetornoResponse.Sucesso)
-        {
-            NSString *chaveCriptografia = [[[OneBuy sharedInstance] codigoAutorizacaoCorrente] substringWithRange:NSMakeRange(0, 16)];
-            
-            [objCheckoutOneBuyDadosResponseRetorno descriptografar:chaveCriptografia];
-            
+        {           
             [[OneBuy sharedInstance] setNumeroTransacaoCheckout:objCheckoutOneBuyDadosResponseRetorno.DadosUsuarioCheckout.Transacao.NumeroTransacao];
         }
         else
